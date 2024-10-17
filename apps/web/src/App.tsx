@@ -21,13 +21,15 @@ function App() {
         <ul>
           <For each={data}>
             {(media) => (
-              <li
-                key={media.id}
-                onClick={() =>
-                  setSelectedId((val) => (val === media.id ? "" : media.id))
-                }
-              >
-                <button style={{ display: "block" }}>{media.title}</button>
+              <li key={media.id}>
+                <button
+                  style={{ display: "block" }}
+                  onClick={() =>
+                    setSelectedId((val) => (val === media.id ? "" : media.id))
+                  }
+                >
+                  {media.title}
+                </button>
                 <Show if={selectedId === media.id}>
                   <Media
                     src={getMediaUrl(media.id)}

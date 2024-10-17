@@ -7,7 +7,9 @@ export interface IMedia {
 }
 
 export async function getMedias(): Promise<IMedia[]> {
-  return fetch(`${BACKEND_URL}/media`).then((res) => res.json());
+  return fetch(`${BACKEND_URL}/media`)
+    .then((res) => res.json())
+    .catch((err) => console.log("🚀 ~ getMedias ~ err: ", err));
 }
 
 export function getMediaUrl(id: string) {

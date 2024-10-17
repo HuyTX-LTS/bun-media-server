@@ -19,4 +19,9 @@ bun prisma migrate dev
 bun dev
 ```
 
+## Swagger url
+```sh
+http://localhost:3000/api/swagger
+```
+
 Backend server should be running on port `3000` and the web app should be running on port `3001`.

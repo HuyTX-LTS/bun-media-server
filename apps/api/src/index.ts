@@ -21,9 +21,26 @@ const app = new Elysia({
   .use(
     swagger({
       provider: "swagger-ui",
+      autoDarkMode: true,
+      path: "/docs",
+      // theme: {
+      //   dark: "dark",
+      //   light: "light",
+      // }
+      exclude: /^.*\/docs.*$/,
+      documentation: {
+        tags: [
+          { name: "Auth", description: "Authentication endpoints" },
+          { name: "Media", description: "Media endpoints" },
+        ],
+        info: {
+          title: "Elysia Documentation",
+          version: "1.0.0",
+        },
+      },
     })
   )
-  .get("/", () => ({ message: "Ok" }))
+  // .get("/", () => ({ message: "Ok" }))
   .post(
     "/upload",
     async ({ body: { title, media } }) => {
@@ -56,14 +73,25 @@ const app = new Elysia({
           maxSize: "500m",
         }),
       }),
+      detail: {
+        tags: ["Media"],
+      },
     }
   )
-  .get("/media", async () => {
-    const medias = await prisma.media.findMany({
-      select: { id: true, title: true, mimeType: true },
-    });
-    return medias;
-  })
+  .get(
+    "/media",
+    async () => {
+      const medias = await prisma.media.findMany({
+        select: { id: true, title: true, mimeType: true },
+      });
+      return medias;
+    },
+    {
+      detail: {
+        tags: ["Media"],
+      },
+    }
+  )
   .get(
     "/media/:id",
     async ({ params: { id }, set, headers }) => {
@@ -101,6 +129,9 @@ const app = new Elysia({
           format: "uuid",
         }),
       }),
+      detail: {
+        tags: ["Media"],
+      },
     }
   )
   .listen(3000);

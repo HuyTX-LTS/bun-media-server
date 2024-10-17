@@ -9,7 +9,10 @@ export function Media({ src, mimeType }: IMediaProps) {
   return (
     <>
       <Show if={mimeType.startsWith("video")}>
-        <video width={1280} height={720} controls>
+        <video style={{
+          width: "100%",
+          height: "auto",
+        }} controls>
           <source src={src} />
         </video>
       </Show>
